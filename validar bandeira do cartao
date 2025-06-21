@@ -1,0 +1,26 @@
+function validarBandeiraCartao(numeroCartao) {
+    const numero = numeroCartao.replace(/\D/g, '');
+
+    const bandeiras = [
+        { nome: 'Visa', pattern: /^4\d{12}(\d{3})?$/ },
+        { nome: 'MasterCard', pattern: /^(5[1-5]\d{14}|2(2[2-9]\d{12}|[3-6]\d{13}|7[01]\d{12}|720\d{12}))$/ },
+        { nome: 'Amex', pattern: /^3[47]\d{13}$/ },
+        { nome: 'Elo', pattern: /^(4011(78|79)\d{10}|(431274|438935|451416|457393|504175|5067(0[0-9]|1[0-9]|20)|509\d{12}|627780\d{10}|636297\d{10}|636368\d{10}))$/ },
+        { nome: 'Hipercard', pattern: /^(606282\d{10}(\d{3})?|3841(46|47)\d{13})$/ },
+        { nome: 'Diners', pattern: /^3(0[0-5]|[68]\d)\d{11}$/ },
+        { nome: 'Discover', pattern: /^6(011\d{12}|5\d{14})$/ },
+        { nome: 'JCB', pattern: /^(2131|1800|35\d{3})\d{11}$/ }
+    ];
+
+    for (const bandeira of bandeiras) {
+        if (bandeira.pattern.test(numero)) {
+            return bandeira.nome;
+        }
+    }
+    return 'Desconhecida';
+}
+
+// Exemplos de uso:
+console.log(validarBandeiraCartao('4111 1111 1111 1111')); // Visa
+console.log(validarBandeiraCartao('5500 0000 0000 0004')); // MasterCard
+console.log(validarBandeiraCartao('3400 0000 0000 009'));  // Amex
